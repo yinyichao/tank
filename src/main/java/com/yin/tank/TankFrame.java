@@ -1,8 +1,6 @@
 package com.yin.tank;
 
-import com.yin.tank.factory.BaseExplode;
-import com.yin.tank.factory.GameFactory;
-import com.yin.tank.factory.RectFactory;
+import com.yin.tank.factory.*;
 import com.yin.tank.strategy.PropertyMgrUtil;
 
 import java.awt.*;
@@ -16,12 +14,13 @@ import java.util.List;
 public class TankFrame extends Frame {
     public static final int GAME_WIDTH = PropertyMgr.getIntegerKey("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getIntegerKey("gameHeight");
-    Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
-    public List<Bullet> bullets = new ArrayList<>();
-    public List<Tank> tanks = new ArrayList<>();
+    public GameFactory factory = new DefaultFactory();
+    BaseTank myTank = factory.createTank(200,400,Dir.DOWN,Group.GOOD,this);
+    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
     Image offScreenImage = null;
-    public GameFactory factory = new RectFactory();
+
     public TankFrame(){
         setSize(GAME_WIDTH,GAME_HEIGHT);
         setResizable(false);

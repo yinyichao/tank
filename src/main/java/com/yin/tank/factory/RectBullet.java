@@ -1,11 +1,10 @@
-package com.yin.tank;
+package com.yin.tank.factory;
 
-import com.yin.tank.factory.BaseBullet;
-import com.yin.tank.factory.BaseTank;
+import com.yin.tank.*;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private static final int SPEED = PropertyMgr.getIntegerKey("bulletSpeed");
     private TankFrame tf;
     private int x,y;
@@ -16,7 +15,7 @@ public class Bullet extends BaseBullet {
     private Group group = Group.BAD;
     private Rectangle rectangle = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -33,20 +32,10 @@ public class Bullet extends BaseBullet {
         if(!living) {
             tf.bullets.remove(this);
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x,y,20,20);
+        g.setColor(c);
         move();
     }
     private void move() {
@@ -68,14 +57,14 @@ public class Bullet extends BaseBullet {
         rectangle.y = this.y;
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
-
+    @Override
     public void collideWith(BaseTank tank) {
         if(this.group == tank.getGroup()) return;
         if(rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
-            int bX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int bY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+            int bX = tank.getX() + RectTank.WIDTH/2 - Explode.WIDTH/2;
+            int bY = tank.getY() + RectTank.HEIGHT/2 - Explode.HEIGHT/2;
             tf.explodes.add(tf.factory.createExplode(bX,bY,tf));
         }
     }

@@ -1,7 +1,7 @@
 package com.yin.tank.strategy;
 
-import com.yin.tank.Tank;
+import com.yin.tank.factory.BaseTank;
 
 public interface FireStrategy {
-    void fire(Tank tank);
+    void fire(BaseTank tank);
 }

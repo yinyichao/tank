@@ -1,21 +1,18 @@
 package com.yin.tank.factory;
 
-import com.yin.tank.Dir;
-import com.yin.tank.Explode;
-import com.yin.tank.Group;
-import com.yin.tank.TankFrame;
+import com.yin.tank.*;
 
 public class DefaultFactory extends GameFactory {
 
 
     @Override
     public BaseTank createTank(int x, int y, Dir dir, Group group, TankFrame tf) {
-        return null;
+        return new Tank(x,y,dir,group,tf);
     }
 
     @Override
     public BaseBullet createBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
-        return null;
+        return new Bullet(x,y,dir,group,tf);
     }
 
     @Override

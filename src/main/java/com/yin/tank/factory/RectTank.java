@@ -1,18 +1,17 @@
-package com.yin.tank;
+package com.yin.tank.factory;
 
-import com.yin.tank.factory.BaseTank;
+import com.yin.tank.*;
 import com.yin.tank.strategy.FireStrategy;
 import com.yin.tank.strategy.PropertyMgrUtil;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank{
     private boolean living = true;
     private Random random = new Random();
 
-
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         super(x,y,group,dir,tf);
         rectangle.x = x;
         rectangle.y = y;
@@ -24,20 +23,10 @@ public class Tank extends BaseTank {
         if (!living) {
             tf.tanks.remove(this);
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(group == Group.BAD ? ResourceMgr.badTankL : ResourceMgr.goodTankL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(group == Group.BAD ? ResourceMgr.badTankU : ResourceMgr.goodTankU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(group == Group.BAD ? ResourceMgr.badTankR : ResourceMgr.goodTankR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(group == Group.BAD ? ResourceMgr.badTankD : ResourceMgr.goodTankD, x, y, null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(group == Group.BAD ? Color.YELLOW : Color.RED);
+        g.fillRect(x,y,40,40);
+        g.setColor(c);
         move();
     }
 
@@ -65,25 +54,12 @@ public class Tank extends BaseTank {
         if (group == Group.BAD) {
             randomDir();
         }
-        boundsCheck();
+        super.boundsCheck();
         rectangle.x = this.x;
         rectangle.y = this.y;
     }
 
-    /*private void boundsCheck() {
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 30) {
-            y = 30;
-        }
-        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH;
-        }
-        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
-        }
-    }*/
+
 
     private void randomDir() {
         this.dir = Dir.values()[random.nextInt(4)];
