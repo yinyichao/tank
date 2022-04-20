@@ -4,6 +4,20 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyMgr {
+    private static volatile PropertyMgr INSTANCE;
+    private PropertyMgr() {
+
+    }
+    public PropertyMgr getINSTANCE() {
+        if(INSTANCE == null) {
+            synchronized (PropertyMgr.class) {
+                if(INSTANCE == null) {
+                    INSTANCE = new PropertyMgr();
+                }
+            }
+        }
+        return INSTANCE;
+    }
     static Properties props = new Properties();
 
     static {

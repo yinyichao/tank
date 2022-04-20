@@ -23,6 +23,8 @@ public class Bullet {
         rectangle.y = y;
         rectangle.height = HEIGHT;
         rectangle.width = WIDTH;
+
+        tf.bullets.add(this);
     }
     public void paint(Graphics g) {
         if(!living) {

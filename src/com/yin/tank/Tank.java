@@ -1,5 +1,9 @@
 package com.yin.tank;
 
+import com.yin.tank.strategy.DefaultFireStrategy;
+import com.yin.tank.strategy.FireStrategy;
+import com.yin.tank.strategy.PropertyMgrUtil;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -34,6 +38,14 @@ public class Tank {
 
     public int getY() {
         return y;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public TankFrame getTf() {
+        return tf;
     }
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
@@ -88,7 +100,7 @@ public class Tank {
                 break;
         }
         if (group == Group.BAD && random.nextInt(100) > 95) {
-            this.fire();
+            this.fire(PropertyMgrUtil.getDefaultFire());
         }
         if (group == Group.BAD) {
             randomDir();
@@ -117,10 +129,8 @@ public class Tank {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
-    public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+    public void fire(FireStrategy st) {
+        st.fire(this);
     }
 
     public void die() {

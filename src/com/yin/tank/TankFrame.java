@@ -1,5 +1,9 @@
 package com.yin.tank;
 
+import com.yin.tank.strategy.DefaultFireStrategy;
+import com.yin.tank.strategy.FourDirFireStrategy;
+import com.yin.tank.strategy.PropertyMgrUtil;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -91,7 +95,10 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
                 case KeyEvent.VK_CONTROL :
-                    myTank.fire();
+                    myTank.fire(PropertyMgrUtil.getDefaultFire());
+                    break;
+                case KeyEvent.VK_A:
+                    myTank.fire(PropertyMgrUtil.getFourDirFire());
                     break;
                 default:break;
             }
