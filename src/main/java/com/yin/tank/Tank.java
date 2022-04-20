@@ -1,6 +1,5 @@
 package com.yin.tank;
 
-import com.yin.tank.strategy.DefaultFireStrategy;
 import com.yin.tank.strategy.FireStrategy;
 import com.yin.tank.strategy.PropertyMgrUtil;
 

@@ -14,6 +14,11 @@
             <artifactId>spring-context</artifactId>
             <version>5.1.9.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
     </dependencies>
     <!-- 配置maven的编译插件 -->
     <build>
