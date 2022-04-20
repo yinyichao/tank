@@ -2,6 +2,8 @@ package com.yin.tank;
 
 import com.yin.tank.strategy.FireStrategy;
 import com.yin.tank.strategy.PropertyMgrUtil;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.Random;
@@ -9,49 +11,27 @@ import java.util.Random;
 public class Tank {
     private static final int SPEED = PropertyMgr.getIntegerKey("tankSpeed");
     public Rectangle rectangle = new Rectangle();
+    @Getter
     private int x = 200, y = 200;
+    @Setter
+    @Getter
     private Dir dir = Dir.DOWN;
+    @Setter
     private boolean moving = true;
-    private TankFrame tf;
     private boolean living = true;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private Random random = new Random();
+    @Getter
     private Group group = Group.BAD;
+    @Getter
+    private GameModel gm;
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
-    public TankFrame getTf() {
-        return tf;
-    }
-
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
         rectangle.x = x;
         rectangle.y = y;
@@ -61,7 +41,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            tf.tanks.remove(this);
+            gm.tanks.remove(this);
         }
         switch (dir) {
             case LEFT:
