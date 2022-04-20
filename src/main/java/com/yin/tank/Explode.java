@@ -1,9 +1,10 @@
 package com.yin.tank;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import com.yin.tank.factory.BaseExplode;
 
-public class Explode {
+import java.awt.*;
+
+public class Explode extends BaseExplode {
 	public static int WIDTH = ResourceMgr.explodes[0].getWidth();
 	public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 	private TankFrame tf;
@@ -16,6 +17,7 @@ public class Explode {
 		this.y = y;
 		this.tf = tf;
 	}
+	@Override
 	public void paint(Graphics g) {
 		g.drawImage(ResourceMgr.explodes[step++],x,y,null);
 		if(step >= ResourceMgr.explodes.length) {
