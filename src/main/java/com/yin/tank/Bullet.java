@@ -2,7 +2,7 @@ package com.yin.tank;
 
 import java.awt.*;
 
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
     private static final int SPEED = PropertyMgr.getIntegerKey("bulletSpeed");
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -10,41 +10,41 @@ public class Bullet extends GameObject{
     private boolean living = true;
     public Group group = Group.BAD;
     public Rectangle rectangle = new Rectangle();
-    public GameModel gm;
 
-    public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         rectangle.x = x;
         rectangle.y = y;
         rectangle.height = HEIGHT;
         rectangle.width = WIDTH;
 
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
+
     public void paint(Graphics g) {
-        if(!living) {
-            gm.remove(this);
+        if (!living) {
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
                 break;
         }
         move();
     }
+
     private void move() {
         switch (dir) {
             case LEFT:
@@ -62,17 +62,17 @@ public class Bullet extends GameObject{
         }
         rectangle.x = this.x;
         rectangle.y = this.y;
-        if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) living = false;
     }
 
     public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup()) return;
-        if(rectangle.intersects(tank.rectangle)) {
+        if (this.group == tank.getGroup()) return;
+        if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
-            int bX = tank.x + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int bY = tank.y + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.add(new Explode(bX,bY,gm));
+            int bX = tank.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int bY = tank.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            new Explode(bX, bY);
         }
     }
 

@@ -1,9 +1,6 @@
-package com.yin.tank.cor;
+package cor;
 
-import com.yin.tank.Bullet;
-import com.yin.tank.Explode;
-import com.yin.tank.GameObject;
-import com.yin.tank.Tank;
+import com.yin.tank.*;
 
 public class BulletTankCollider extends Collider {
     @Override
@@ -17,7 +14,7 @@ public class BulletTankCollider extends Collider {
                 b.die();
                 int bX = t.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
                 int bY = t.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-                b.gm.add(new Explode(bX,bY,b.gm));
+                new Explode(bX,bY);
                 return false;
             }
         }else if(o1 instanceof Tank && o2 instanceof Bullet) {

@@ -1,4 +1,4 @@
-package com.yin.tank.cor;
+package cor;
 
 import com.yin.tank.GameObject;
 import com.yin.tank.Tank;
@@ -10,8 +10,8 @@ public class TankTankCollider extends Collider {
             Tank t1 = (Tank) o1;
             Tank t2 = (Tank) o2;
             if(t1.getRectangle().intersects(t2.getRectangle())) {
-                t1.stop();
-                t2.stop();
+                t1.back();
+                t2.back();
             }
         }
         return true;

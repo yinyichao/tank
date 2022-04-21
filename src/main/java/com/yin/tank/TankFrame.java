@@ -1,6 +1,6 @@
 package com.yin.tank;
 
-import com.yin.tank.strategy.PropertyMgrUtil;
+import strategy.PropertyMgrUtil;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -9,12 +9,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
-    GameModel gm = new GameModel();
     public static final int GAME_WIDTH = PropertyMgr.getIntegerKey("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getIntegerKey("gameHeight");
     Image offScreenImage = null;
-    public TankFrame(){
-        setSize(GAME_WIDTH,GAME_HEIGHT);
+
+    public TankFrame() {
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -40,54 +40,58 @@ public class TankFrame extends Frame {
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
     }
+
     @Override
     public void paint(Graphics g) {
-        gm.paint(g);
+        GameModel.getInstance().paint(g);
     }
+
     class MyKeyListener extends KeyAdapter {
         boolean bL = false;
         boolean bR = false;
         boolean bU = false;
         boolean bD = false;
+
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
             switch (key) {
-                case KeyEvent.VK_LEFT :
+                case KeyEvent.VK_LEFT:
                     bL = true;
                     break;
-                case KeyEvent.VK_RIGHT :
+                case KeyEvent.VK_RIGHT:
                     bR = true;
                     break;
-                case KeyEvent.VK_UP :
+                case KeyEvent.VK_UP:
                     bU = true;
                     break;
-                case KeyEvent.VK_DOWN :
+                case KeyEvent.VK_DOWN:
                     bD = true;
                     break;
-                case KeyEvent.VK_CONTROL :
-                    gm.getMyTank().fire(PropertyMgrUtil.getDefaultFire());
+                case KeyEvent.VK_CONTROL:
+                    GameModel.getInstance().getMyTank().fire(PropertyMgrUtil.getDefaultFire());
                     break;
                 case KeyEvent.VK_A:
-                    gm.getMyTank().fire(PropertyMgrUtil.getFourDirFire());
+                    GameModel.getInstance().getMyTank().fire(PropertyMgrUtil.getFourDirFire());
                     break;
-                default:break;
+                default:
+                    break;
             }
             setMainTankDir();
         }
 
         private void setMainTankDir() {
-            Tank myTank = gm.getMyTank();
-            if(!bL && !bR && !bU && !bD) {
+            Tank myTank = GameModel.getInstance().getMyTank();
+            if (!bL && !bR && !bU && !bD) {
                 myTank.setMoving(false);
-            }else {
+            } else {
                 myTank.setMoving(true);
             }
 
-            if(bL) myTank.setDir(Dir.LEFT);
-            if(bR) myTank.setDir(Dir.RIGHT);
-            if(bU) myTank.setDir(Dir.UP);
-            if(bD) myTank.setDir(Dir.DOWN);
+            if (bL) myTank.setDir(Dir.LEFT);
+            if (bR) myTank.setDir(Dir.RIGHT);
+            if (bU) myTank.setDir(Dir.UP);
+            if (bD) myTank.setDir(Dir.DOWN);
 
 
         }
@@ -96,19 +100,20 @@ public class TankFrame extends Frame {
         public void keyReleased(KeyEvent e) {
             int key = e.getKeyCode();
             switch (key) {
-                case KeyEvent.VK_LEFT :
+                case KeyEvent.VK_LEFT:
                     bL = false;
                     break;
-                case KeyEvent.VK_RIGHT :
+                case KeyEvent.VK_RIGHT:
                     bR = false;
                     break;
-                case KeyEvent.VK_UP :
+                case KeyEvent.VK_UP:
                     bU = false;
                     break;
-                case KeyEvent.VK_DOWN :
+                case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
-                default:break;
+                default:
+                    break;
             }
             setMainTankDir();
         }

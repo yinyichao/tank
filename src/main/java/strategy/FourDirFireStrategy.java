@@ -1,4 +1,4 @@
-package com.yin.tank.strategy;
+package strategy;
 
 import com.yin.tank.Bullet;
 import com.yin.tank.Dir;
@@ -12,7 +12,7 @@ public class FourDirFireStrategy implements FireStrategy {
         int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         Dir[] dirs = Dir.values();
         for (int i = 0; i < dirs.length; i++) {
-            new Bullet(bX, bY, dirs[i], tank.getGroup(), tank.getGm());
+            new Bullet(bX, bY, dirs[i], tank.getGroup());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.yin.tank.cor;
+package cor;
 
 import com.yin.tank.GameObject;
 

@@ -1,14 +1,14 @@
 package com.yin.tank;
 
-import com.yin.tank.strategy.FireStrategy;
-import com.yin.tank.strategy.PropertyMgrUtil;
+import strategy.FireStrategy;
+import strategy.PropertyMgrUtil;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank extends GameObject{
+public class Tank extends GameObject {
     private static final int SPEED = PropertyMgr.getIntegerKey("tankSpeed");
     @Getter
     public Rectangle rectangle = new Rectangle();
@@ -23,24 +23,26 @@ public class Tank extends GameObject{
     private Random random = new Random();
     @Getter
     private Group group = Group.BAD;
-    @Getter
-    private GameModel gm;
+    private int oldX;
+    private int oldY;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
+        oldX = x;
+        oldY = y;
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         rectangle.x = x;
         rectangle.y = y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -64,6 +66,8 @@ public class Tank extends GameObject{
     }
 
     private void move() {
+        oldX = x;
+        oldY = y;
         if (!moving) {
             return;
         }
@@ -84,7 +88,7 @@ public class Tank extends GameObject{
         if (group == Group.BAD && random.nextInt(100) > 95) {
             this.fire(PropertyMgrUtil.getDefaultFire());
         }
-        if (group == Group.BAD) {
+        if (group == Group.BAD && random.nextInt(100) > 95) {
             randomDir();
         }
         boundsCheck();
@@ -93,17 +97,17 @@ public class Tank extends GameObject{
     }
 
     private void boundsCheck() {
-        if (x < 0) {
-            x = 0;
+        if (x < 2) {
+            x = 2;
         }
-        if (y < 30) {
-            y = 30;
+        if (y < 28) {
+            y = 28;
         }
-        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH;
+        if (x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
         }
-        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
+        if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
         }
     }
 
@@ -117,5 +121,10 @@ public class Tank extends GameObject{
 
     public void die() {
         this.living = false;
+    }
+
+    public void back() {
+        this.x = oldX;
+        this.y = oldY;
     }
 }
