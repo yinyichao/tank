@@ -2,16 +2,15 @@ package com.yin.tank;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject{
     private static final int SPEED = PropertyMgr.getIntegerKey("bulletSpeed");
-    private int x,y;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     private Dir dir;
     private boolean living = true;
-    private Group group = Group.BAD;
-    private Rectangle rectangle = new Rectangle();
-    private GameModel gm;
+    public Group group = Group.BAD;
+    public Rectangle rectangle = new Rectangle();
+    public GameModel gm;
 
     public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
         this.x = x;
@@ -24,11 +23,11 @@ public class Bullet {
         rectangle.height = HEIGHT;
         rectangle.width = WIDTH;
 
-        gm.bullets.add(this);
+        gm.add(this);
     }
     public void paint(Graphics g) {
         if(!living) {
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -71,13 +70,13 @@ public class Bullet {
         if(rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
-            int bX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int bY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gm.explodes.add(new Explode(bX,bY,gm));
+            int bX = tank.x + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int bY = tank.y + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+            gm.add(new Explode(bX,bY,gm));
         }
     }
 
-    private void die() {
+    public void die() {
         this.living = false;
     }
 }

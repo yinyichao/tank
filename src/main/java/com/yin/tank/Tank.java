@@ -8,11 +8,10 @@ import lombok.Setter;
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
     private static final int SPEED = PropertyMgr.getIntegerKey("tankSpeed");
-    public Rectangle rectangle = new Rectangle();
     @Getter
-    private int x = 200, y = 200;
+    public Rectangle rectangle = new Rectangle();
     @Setter
     @Getter
     private Dir dir = Dir.DOWN;
@@ -41,7 +40,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.tanks.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -58,6 +57,10 @@ public class Tank {
                 break;
         }
         move();
+    }
+
+    public void stop() {
+        moving = false;
     }
 
     private void move() {

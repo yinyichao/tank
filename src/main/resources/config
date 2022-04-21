@@ -7,3 +7,4 @@ gameHeight=720
 # tank bullet strategy
 defaultFire=com.yin.tank.strategy.DefaultFireStrategy
 fourFire=com.yin.tank.strategy.FourDirFireStrategy
+colliders=com.yin.tank.cor.BulletTankCollider,com.yin.tank.cor.TankTankCollider
