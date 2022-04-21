@@ -1,6 +1,6 @@
 package com.yin.tank;
 
-import cor.ColliderChain;
+import com.yin.tank.cor.ColliderChain;
 import lombok.Getter;
 
 import java.awt.*;

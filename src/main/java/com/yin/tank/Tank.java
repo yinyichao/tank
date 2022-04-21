@@ -1,7 +1,7 @@
 package com.yin.tank;
 
-import strategy.FireStrategy;
-import strategy.PropertyMgrUtil;
+import com.yin.tank.strategy.FireStrategy;
+import com.yin.tank.strategy.PropertyMgrUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,6 +59,16 @@ public class Tank extends GameObject {
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
     }
 
     public void stop() {

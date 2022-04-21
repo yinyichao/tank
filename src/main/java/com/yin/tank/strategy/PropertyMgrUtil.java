@@ -1,4 +1,4 @@
-package strategy;
+package com.yin.tank.strategy;
 
 import com.yin.tank.PropertyMgr;
 

@@ -13,5 +13,7 @@ public abstract class GameObject {
     @Setter
     protected int y;
     public abstract void paint(Graphics p);
+    public abstract int getHeight();
+    public abstract int getWidth();
 
 }

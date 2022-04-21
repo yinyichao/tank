@@ -1,6 +1,6 @@
 package com.yin.tank;
 
-import strategy.PropertyMgrUtil;
+import com.yin.tank.strategy.PropertyMgrUtil;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
