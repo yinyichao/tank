@@ -1,11 +1,16 @@
 package com.yin.tank;
 
+import com.yin.tank.observer.TankFireEvent;
+import com.yin.tank.observer.TankFireHandle;
+import com.yin.tank.observer.TankFireObserver;
 import com.yin.tank.strategy.FireStrategy;
 import com.yin.tank.strategy.PropertyMgrUtil;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -136,5 +141,12 @@ public class Tank extends GameObject {
     public void back() {
         this.x = oldX;
         this.y = oldY;
+    }
+    private List<TankFireObserver> lists = Arrays.asList(new TankFireHandle());
+    public void handleFireKey() {
+        TankFireEvent event = new TankFireEvent(this);
+        for(TankFireObserver t : lists) {
+            t.actionOnFire(event);
+        }
     }
 }
