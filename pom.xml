@@ -24,6 +24,12 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
         </dependency>
+        <dependency>
+            <artifactId>asm</artifactId>
+            <groupId>org.ow2.asm</groupId>
+            <version>5.2</version>
+        </dependency>
+
     </dependencies>
     <!-- 配置maven的编译插件 -->
     <build>
