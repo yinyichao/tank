@@ -12,6 +12,7 @@ public class TankFrame extends Frame {
     public static final int GAME_WIDTH = PropertyMgr.getIntegerKey("gameWidth");
     public static final int GAME_HEIGHT = PropertyMgr.getIntegerKey("gameHeight");
     Image offScreenImage = null;
+    GameModel gm = GameModel.getInstance();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -69,11 +70,17 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    //GameModel.getInstance().getMyTank().fire(PropertyMgrUtil.getDefaultFire());
-                    GameModel.getInstance().getMyTank().handleFireKey();
+                    //gm.getMyTank().fire(PropertyMgrUtil.getDefaultFire());
+                    gm.getMyTank().handleFireKey();
                     break;
                 case KeyEvent.VK_A:
-                    GameModel.getInstance().getMyTank().fire(PropertyMgrUtil.getFourDirFire());
+                    gm.getMyTank().fire(PropertyMgrUtil.getFourDirFire());
+                    break;
+                case KeyEvent.VK_S:
+                    gm.save();
+                    break;
+                case KeyEvent.VK_L:
+                    gm.load();
                     break;
                 default:
                     break;
